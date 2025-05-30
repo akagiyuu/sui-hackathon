@@ -29,6 +29,9 @@ jobs:
   build-backend:
     name: Build backend
     runs-on: ubuntu-latest
+    env:
+      REGISTRY: ghcr.io/${{ github.repository }}
+      HOST_NAME: ${{ secrets.HOST_NAME }}
     steps:
       - name: Checkout Develop
         uses: actions/checkout@v3

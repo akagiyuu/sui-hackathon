@@ -2,7 +2,7 @@ services:
   sui-backend:
     container_name: sui-backend
     environment:
-      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@database/${PG_DB}
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@sui-database:5432/${PG_DB}
       PUBLIC_CORS_DOMAIN: https://${HOST_NAME}
     image: ${REGISTRY}/sui-backend:latest
     restart: always
