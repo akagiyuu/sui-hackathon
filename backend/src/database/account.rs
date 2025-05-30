@@ -25,3 +25,9 @@ pub async fn create(
     .fetch_one(executor)
     .await
 }
+
+pub async fn get_password(email: &str, executor: impl PgExecutor<'_>) -> Result<String> {
+    sqlx::query_scalar!("SELECT password FROM accounts WHERE email = $1", email)
+        .fetch_one(executor)
+        .await
+}
