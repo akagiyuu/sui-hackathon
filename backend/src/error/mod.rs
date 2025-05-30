@@ -1,0 +1,38 @@
+mod auth;
+
+pub use auth::*;
+
+use axum::{Json, http::StatusCode, response::IntoResponse};
+use serde::Serialize;
+use utoipa::ToSchema;
+
+pub type Result<T> = std::result::Result<T, Error>;
+
+#[derive(Serialize, ToSchema)]
+pub struct ErrorResponse {
+    pub message: String,
+}
+
+#[derive(Debug, thiserror::Error)]
+pub enum Error {
+    #[error("{0}")]
+    Auth(#[from] AuthError),
+
+    #[error("Unknown error: {0}")]
+    Other(#[from] anyhow::Error),
+}
+
+impl IntoResponse for Error {
+    fn into_response(self) -> axum::response::Response {
+        match self {
+            Error::Auth(error) => error.into_response(),
+            Error::Other(error) => (
+                StatusCode::BAD_REQUEST,
+                Json(ErrorResponse {
+                    message: error.to_string(),
+                }),
+            )
+                .into_response(),
+        }
+    }
+}
