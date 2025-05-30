@@ -1,0 +1,39 @@
+services:
+  sui-backend:
+    container_name: sui-backend
+    environment:
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@database/${PG_DB}
+      PUBLIC_CORS_DOMAIN: https://${HOST_NAME}
+    image: ${REGISTRY}/sui-backend:latest
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sui-backend.rule=Host(`api.${HOST_NAME}`)"
+      - "traefik.http.routers.sui-backend.entrypoints=web"
+      - "traefik.http.routers.sui-backend.tls=true"
+      - "traefik.http.services.sui-backend.loadbalancer.server.port=3000"
+    networks:
+      - sui-networks
+    profiles:
+      - backend
+      - deploy
+  sui-frontend:
+    container_name: sui-frontend
+    image: ${REGISTRY}/sui-frontend:latest
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sui-frontend.rule=Host(`${HOST_NAME}`)"
+      - "traefik.http.routers.sui-frontend.entrypoints=web"
+      - "traefik.http.routers.sui-frontend.tls=true"
+      - "traefik.http.services.sui-frontend.loadbalancer.server.port=80"
+    networks:
+      - sui-networks
+    profiles:
+      - frontend
+      - deploy
+
+networks:
+  sui-networks:
+    name: sui-networks
+    external: true
