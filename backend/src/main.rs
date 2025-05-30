@@ -1,8 +1,10 @@
 mod config;
 mod controller;
+mod database;
 mod doc;
 mod error;
 mod state;
+mod util;
 
 use std::net::SocketAddr;
 
