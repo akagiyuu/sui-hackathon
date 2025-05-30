@@ -10,6 +10,8 @@ const fn default_port() -> u16 {
 pub struct Config {
     #[serde(default = "default_port")]
     pub port: u16,
+
+    pub database_url: String,
 }
 
 pub static CONFIG: LazyLock<Config> = LazyLock::new(|| {
