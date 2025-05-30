@@ -7,6 +7,9 @@ jobs:
   build-frontend:
     name: Build frontend
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     env:
       REGISTRY: ghcr.io/${{ github.repository }}
       HOST_NAME: ${{ secrets.HOST_NAME }}
@@ -29,6 +32,9 @@ jobs:
   build-backend:
     name: Build backend
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     env:
       REGISTRY: ghcr.io/${{ github.repository }}
       HOST_NAME: ${{ secrets.HOST_NAME }}
@@ -52,6 +58,9 @@ jobs:
     name: Deploy
     runs-on: sui-hackathon
     needs: [build-frontend, build-backend]
+    permissions:
+      contents: read
+      packages: write
     env:
       PG_USER: ${{ secrets.PG_USER }}
       PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
