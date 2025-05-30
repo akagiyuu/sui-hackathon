@@ -3,6 +3,8 @@ mod controller;
 mod doc;
 mod error;
 mod state;
+mod database;
+mod util;
 
 use std::net::SocketAddr;
 
