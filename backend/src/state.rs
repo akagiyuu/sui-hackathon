@@ -2,13 +2,16 @@ use std::sync::Arc;
 
 use sqlx::PgPool;
 
-use crate::{config::CONFIG, util};
+use crate::{
+    config::CONFIG,
+    util::{self, auth::OpenIdConnectClient},
+};
 use openidconnect::reqwest;
 
 pub struct ApiState {
     pub database_pool: PgPool,
     pub http_client: reqwest::Client,
-    pub google_client: util::auth::Client,
+    pub google_client: OpenIdConnectClient,
 }
 
 impl ApiState {
@@ -20,7 +23,7 @@ impl ApiState {
             .build()
             .unwrap();
 
-        let google_client = util::auth::new(
+        let google_client = OpenIdConnectClient::new(
             CONFIG.google_client_id.clone(),
             CONFIG.google_client_secret.clone(),
             CONFIG.google_issuer_url.clone(),
