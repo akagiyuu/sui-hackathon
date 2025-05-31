@@ -34,6 +34,7 @@ impl Modify for SecurityAddon {
 
         controller::auth::google::google,
         controller::auth::microsoft::microsoft,
+        controller::auth::me,
 
         controller::video::get,
         controller::video::get_all,

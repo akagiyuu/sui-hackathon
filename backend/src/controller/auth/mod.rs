@@ -1,4 +1,5 @@
 pub mod google;
+mod me;
 pub mod microsoft;
 
 use std::sync::Arc;
@@ -6,6 +7,8 @@ use std::sync::Arc;
 use axum::{Router, routing};
 
 use crate::state::ApiState;
+
+pub use me::*;
 
 pub fn build() -> Router<Arc<ApiState>> {
     Router::new()
@@ -16,4 +19,5 @@ pub fn build() -> Router<Arc<ApiState>> {
             "/auth/microsoft/authorized",
             routing::get(microsoft::authorized),
         )
+        .route("/auth/me", routing::get(me))
 }
