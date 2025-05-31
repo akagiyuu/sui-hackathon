@@ -3,7 +3,6 @@ use std::sync::LazyLock;
 use anyhow::Result;
 use reqwest::Body;
 use serde::Deserialize;
-use serde_json::Value;
 
 use crate::config::CONFIG;
 
