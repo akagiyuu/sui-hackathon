@@ -20,3 +20,8 @@ export const me = async () => {
 
     return (await response.json()) as Account;
 };
+
+export const logout = async () => {
+    await fetchWrapper('auth/logout');
+    location.reload();
+};

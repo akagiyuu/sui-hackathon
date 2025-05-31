@@ -7,12 +7,19 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import * as api from '@/api';
 import { CreditCard, LogOut, User, UserCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
+
+const TOKEN_KEY = 'token';
+
+async function logout() {
+    document.cookie = TOKEN_KEY + '=; Max-Age=-99999999;';
+    location.reload();
+}
 
 export function Account() {
     const { data: account, status } = useQuery({
@@ -43,9 +50,8 @@ export function Account() {
                 <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                         <Avatar className="h-8 w-8 rounded-lg">
-                            {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
                             <AvatarFallback className="rounded-lg">
-                                CN
+                                {account.name[0]}
                             </AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
@@ -74,7 +80,7 @@ export function Account() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={logout}>
                     <LogOut />
                     Log out
                 </DropdownMenuItem>
