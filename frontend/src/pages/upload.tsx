@@ -31,7 +31,7 @@ import {
     FileUploadList,
     FileUploadTrigger,
 } from '@/components/ui/file-upload';
-import { Image, Upload, Video, X } from 'lucide-react';
+import { Image, Video, X } from 'lucide-react';
 
 const schema = z.object({
     video: z
@@ -56,8 +56,6 @@ export function UploadForm() {
             description: '',
         },
     });
-
-    const { setValue } = form;
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
