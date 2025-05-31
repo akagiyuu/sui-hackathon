@@ -13,7 +13,6 @@ export function Header() {
                         <Logo />
                     </Link>
 
-                    {/* Enhanced Search Bar */}
                     <div className="flex-1 max-w-2xl mx-8">
                         <div className="relative group">
                             <div className="relative">
