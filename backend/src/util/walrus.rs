@@ -43,3 +43,7 @@ pub async fn upload<T: Into<Body>>(data: T) -> Result<String> {
 
     Ok(response.into_blob_id())
 }
+
+pub fn generate_link(blob_id: &str) -> String {
+    format!("{}/v1/blobs/{}", CONFIG.walrus_aggregator, blob_id)
+}
