@@ -61,8 +61,6 @@ export function UploadPage() {
         },
     });
 
-    const { setValue } = form;
-
     const { status, mutate } = useMutation({
         mutationFn: async (values: z.infer<typeof schema>) => {
             console.log(values);

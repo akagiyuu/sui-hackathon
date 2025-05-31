@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { MinimalVideoCard, type VideoCardProps } from '@/components/video-card';
+import { MinimalVideoCard } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
-import { ThumbsUp, ThumbsDown, Share, Eye, ChevronDown } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Share, Eye } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import * as api from '@/api';
 import { toast } from 'sonner';
