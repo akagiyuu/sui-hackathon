@@ -3,6 +3,7 @@ use std::sync::LazyLock;
 use anyhow::Result;
 use reqwest::Body;
 use serde::Deserialize;
+use serde_json::Value;
 
 use crate::config::CONFIG;
 
@@ -15,9 +16,9 @@ struct BlobObject {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 enum UploadResponse {
-    #[serde(rename_all = "snake_case")]
+    #[serde(rename_all = "camelCase")]
     NewlyCreated { blob_object: BlobObject },
-    #[serde(rename_all = "snake_case")]
+    #[serde(rename_all = "camelCase")]
     AlreadyCertified { blob_id: String },
 }
 

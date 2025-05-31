@@ -3,12 +3,13 @@ mod controller;
 mod database;
 mod doc;
 mod error;
+mod middleware;
 mod state;
 mod util;
 
 use std::net::SocketAddr;
 
-use axum::Router;
+use axum::{Router, extract::DefaultBodyLimit};
 use config::CONFIG;
 use state::ApiState;
 use tokio::net::TcpListener;
@@ -24,7 +25,9 @@ async fn build_app() -> Router {
     Router::new()
         .merge(controller::build())
         .merge(doc::build())
+        .layer(DefaultBodyLimit::max(1024 * 1024 * 1024))
         .layer(TraceLayer::new_for_http())
+        .layer(middleware::session())
         .with_state(state)
 }
 

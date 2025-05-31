@@ -59,7 +59,11 @@ pub async fn authorized(
         names.next().expect("Google account must have name").1
     };
 
-    let id = database::account::create(email, name, &state.database_pool).await?;
+    database::account::create(email, name, &state.database_pool).await?;
+    let id = database::account::get_by_email(email, &state.database_pool)
+        .await?
+        .expect("Account must be created in previous step to get here");
+
     let claims = Claims::new(id);
 
     let token = claims.as_token().map_err(|error| {
