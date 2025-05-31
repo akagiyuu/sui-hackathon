@@ -4,7 +4,7 @@ import {
     VideoCard,
     type VideoCardProps,
 } from '@/components/video-card';
-import { formatDate } from '@/lib/utils';
+import { formatDate, formatNumber } from '@/lib/utils';
 import {
     ThumbsUp,
     ThumbsDown,
@@ -138,7 +138,7 @@ export default function Watch() {
                                             className="rounded-l-full text-white hover:bg-neutral-700 px-4 hover:scale-105 transition-all duration-300"
                                         >
                                             <ThumbsUp className="w-4 h-4 mr-2" />
-                                            {video.like}
+                                            {formatNumber(video.like)}
                                         </Button>
                                         <div className="w-px h-6 bg-neutral-700" />
                                         <Button
@@ -147,7 +147,7 @@ export default function Watch() {
                                             className="rounded-r-full text-white hover:bg-neutral-700 px-3 hover:scale-105 transition-all duration-300"
                                         >
                                             <ThumbsDown className="w-4 h-4" />
-                                            {video.dislike}
+                                            {formatNumber(video.dislike)}
                                         </Button>
                                     </div>
                                     <Button
@@ -165,7 +165,7 @@ export default function Watch() {
                         <div className="flex items-center space-x-4 text-sm text-neutral-400 animate-fade-in">
                             <span className="flex items-center space-x-1">
                                 <Eye className="w-4 h-4" />
-                                <span>{video.view}</span>
+                                <span>{formatNumber(video.view)}</span>
                             </span>
                             <span>•</span>
                             <span>{formatDate(video.createdAt)}</span>
