@@ -29,7 +29,12 @@ impl Modify for SecurityAddon {
 
 #[derive(OpenApi)]
 #[openapi(
-    paths(controller::ping),
+    paths(
+        controller::ping,
+
+        controller::auth::google::google,
+        controller::auth::microsoft::microsoft,
+    ),
     modifiers(&SecurityAddon),
 )]
 struct ApiDoc;
