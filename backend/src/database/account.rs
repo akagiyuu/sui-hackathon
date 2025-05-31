@@ -1,21 +1,29 @@
 use sqlx::{PgExecutor, Result};
 use uuid::Uuid;
 
-pub async fn create(email: &str, name: &str, executor: impl PgExecutor<'_>) -> Result<Uuid> {
-    sqlx::query_scalar!(
+pub async fn create(email: &str, name: &str, executor: impl PgExecutor<'_>) -> Result<()> {
+    sqlx::query!(
         r#"
             INSERT INTO accounts(email, name)
             VALUES(
                 $1,
                 $2
             )
-            RETURNING id
+            ON CONFLICT DO NOTHING
         "#,
         email,
         name,
     )
-    .fetch_one(executor)
-    .await
+    .execute(executor)
+    .await?;
+
+    Ok(())
+}
+
+pub async fn get_by_email(email: &str, executor: impl PgExecutor<'_>) -> Result<Option<Uuid>> {
+    sqlx::query_scalar!("SELECT id FROM accounts WHERE email = $1", email)
+        .fetch_optional(executor)
+        .await
 }
 
 pub struct Account {
