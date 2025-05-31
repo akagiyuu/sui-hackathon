@@ -12,6 +12,10 @@ pub struct Config {
     pub port: u16,
 
     pub database_url: String,
+
+    pub google_client_id: String,
+
+    pub google_client_secret: String,
 }
 
 pub static CONFIG: LazyLock<Config> = LazyLock::new(|| {
