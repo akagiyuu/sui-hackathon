@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { Logo } from './logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Upload } from 'lucide-react';
+import { Bell, Search, Upload } from 'lucide-react';
 import { Account } from './account';
 
 export function Header() {
@@ -31,7 +31,19 @@ export function Header() {
                         </div>
                     </div>
 
-                    <Account />
+                    <div className="flex items-center space-x-5">
+                        <Link to="/upload">
+                            <Button
+                                variant="ghost"
+                                className="h-9 px-4 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-all duration-300 hover:scale-105 group"
+                            >
+                                <Upload className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+                                Upload
+                            </Button>
+                        </Link>
+                        <Bell className="w-5 h-5 hover:cursor-pointer" />
+                        <Account />
+                    </div>
                 </div>
             </div>
         </header>
