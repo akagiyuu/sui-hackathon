@@ -8,7 +8,7 @@ export interface VideoCardProps {
     thumbnail: string;
     title: string;
     uploaderName: string;
-    duration: number; // millisecond
+    duration: number;
     viewCount: number;
     createdAt: Date;
 }
