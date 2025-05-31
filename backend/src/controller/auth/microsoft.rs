@@ -4,11 +4,13 @@ use axum::{
     extract::{Query, State},
     response::{IntoResponse, Redirect},
 };
+use axum_extra::extract::CookieJar;
 use openidconnect::{AuthorizationCode, CsrfToken, Nonce};
 use serde::Deserialize;
 use tower_sessions::Session;
 
 use crate::{
+    config::CONFIG,
     database,
     error::{AuthError, Result},
     state::ApiState,
@@ -35,8 +37,9 @@ pub struct AuthRequest {
 pub async fn authorized(
     state: State<Arc<ApiState>>,
     session: Session,
+    jar: CookieJar,
     Query(query): Query<AuthRequest>,
-) -> Result<String> {
+) -> Result<impl IntoResponse> {
     let (csrf, nonce): (CsrfToken, Nonce) = session.get(KEY).await.unwrap().unwrap();
 
     let claims = state
@@ -69,10 +72,10 @@ pub async fn authorized(
 
     let claims = Claims::new(id);
 
-    let token = claims.as_token().map_err(|error| {
+    let cookie = claims.as_cookie().map_err(|error| {
         tracing::error!(error =? error);
         AuthError::InvalidAuthToken
     })?;
 
-    Ok(token)
+    Ok((jar.add(cookie), Redirect::to(&CONFIG.frontend_redirect)))
 }

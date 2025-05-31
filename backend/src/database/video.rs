@@ -1,8 +1,6 @@
 use chrono::{DateTime, Utc};
 use futures::Stream;
-use serde::Serialize;
 use sqlx::{PgExecutor, Result};
-use utoipa::ToSchema;
 use uuid::Uuid;
 
 pub struct CreateVideo {

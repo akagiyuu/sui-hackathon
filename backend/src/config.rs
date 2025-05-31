@@ -6,12 +6,20 @@ const fn default_port() -> u16 {
     3000
 }
 
+fn default_cors_domain() -> String {
+    "http://localhost:5173".to_string()
+}
+
 fn default_jwt_secret() -> String {
     "secret".to_string()
 }
 
 const fn default_jwt_expired_in() -> u64 {
     24 * 60 * 60
+}
+
+fn default_frontend_redirect() -> String {
+    "http://localhost:5173".to_string()
 }
 
 fn default_google_issuer_url() -> String {
@@ -45,10 +53,16 @@ pub struct Config {
 
     pub database_url: String,
 
+    #[serde(default = "default_cors_domain")]
+    pub cors_domain: String,
+
     #[serde(default = "default_jwt_secret")]
     pub jwt_secret: String,
     #[serde(default = "default_jwt_expired_in")]
     pub jwt_expired_in: u64,
+
+    #[serde(default = "default_frontend_redirect")]
+    pub frontend_redirect: String,
 
     pub google_client_id: String,
     pub google_client_secret: String,
