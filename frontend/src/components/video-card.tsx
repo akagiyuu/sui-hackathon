@@ -8,7 +8,7 @@ export interface VideoCardProps {
     uploader: string;
     duration: number; // millisecond
     view: number;
-    createAt: Date;
+    createdAt: Date;
 }
 
 export function VideoCard({
@@ -18,7 +18,7 @@ export function VideoCard({
     uploader,
     duration,
     view,
-    createAt,
+    createdAt,
 }: VideoCardProps) {
     return (
         <Card
@@ -55,9 +55,56 @@ export function VideoCard({
                         <span>{view}</span>
                     </span>
                     <span>•</span>
-                    <span>{createAt.toISOString()}</span>
+                    <span>{createdAt.toISOString()}</span>
                 </div>
             </CardContent>
         </Card>
+    );
+}
+
+export function MinimalVideoCard({
+    animationDelay,
+    thumbnail,
+    title,
+    uploader,
+    duration,
+    view,
+    createdAt,
+}: VideoCardProps) {
+    return (
+        <article
+            className="overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/20"
+            style={{ animationDelay: `${animationDelay}ms` }}
+        >
+            <div className="flex space-x-3">
+                <div className="relative w-32 aspect-video bg-neutral-800 rounded overflow-hidden flex-shrink-0">
+                    <img
+                        src={thumbnail || '/placeholder.svg'}
+                        alt={title}
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded flex items-center space-x-1">
+                        <Clock className="w-2 h-2" />
+                        <span>{duration}</span>
+                    </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-white line-clamp-2 text-sm mb-1 group-hover:text-neutral-200 transition-colors duration-300 leading-snug">
+                        {title}
+                    </h4>
+                    <p className="text-xs text-neutral-400 mb-1 group-hover:text-neutral-300 transition-colors duration-300">
+                        {uploader}
+                    </p>
+                    <div className="flex items-center text-xs text-neutral-500 space-x-1 group-hover:text-neutral-400 transition-colors duration-300">
+                        <span className="flex items-center space-x-1">
+                            <Eye className="w-2 h-2" />
+                            <span>{view}</span>
+                        </span>
+                        <span>•</span>
+                        <span>{createdAt.toString()}</span>
+                    </div>
+                </div>
+            </div>
+        </article>
     );
 }
