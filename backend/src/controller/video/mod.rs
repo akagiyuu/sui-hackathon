@@ -18,6 +18,7 @@ pub use get_all::*;
 pub use upload::*;
 
 #[derive(Serialize, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct Video {
     pub id: Uuid,
     pub video: String,
