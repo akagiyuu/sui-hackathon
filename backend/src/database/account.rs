@@ -1,4 +1,6 @@
+use serde::Serialize;
 use sqlx::{PgExecutor, Result};
+use utoipa::ToSchema;
 use uuid::Uuid;
 
 pub async fn create(email: &str, name: &str, executor: impl PgExecutor<'_>) -> Result<()> {
@@ -26,6 +28,7 @@ pub async fn get_by_email(email: &str, executor: impl PgExecutor<'_>) -> Result<
         .await
 }
 
+#[derive(Serialize, ToSchema)]
 pub struct Account {
     pub email: String,
     pub name: String,
