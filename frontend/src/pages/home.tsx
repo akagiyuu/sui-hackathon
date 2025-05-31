@@ -8,7 +8,7 @@ const videos: VideoCardProps[] = [
         uploader: 'Tech Tutorials',
         duration: 600,
         view: 100,
-        createAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
     },
     {
         animationDelay: 200,
@@ -17,7 +17,7 @@ const videos: VideoCardProps[] = [
         uploader: 'Tech Tutorials',
         duration: 600,
         view: 100,
-        createAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
     },
     {
         animationDelay: 300,
@@ -26,7 +26,7 @@ const videos: VideoCardProps[] = [
         uploader: 'Tech Tutorials',
         duration: 600,
         view: 100,
-        createAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
     },
     {
         animationDelay: 400,
@@ -35,7 +35,7 @@ const videos: VideoCardProps[] = [
         uploader: 'Tech Tutorials',
         duration: 600,
         view: 100,
-        createAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
     },
 ];
 
