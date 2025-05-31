@@ -1,4 +1,4 @@
-import { VideoCard, type VideoCardProps } from '@/components/video-card';
+import { VideoCard } from '@/components/video-card';
 import * as api from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';

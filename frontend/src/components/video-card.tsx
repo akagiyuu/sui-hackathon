@@ -1,8 +1,10 @@
 import { Clock, Eye, Play } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
+import { useNavigate } from 'react-router';
 
 export interface VideoCardProps {
+    id: string;
     thumbnail: string;
     title: string;
     uploaderName: string;
@@ -12,6 +14,7 @@ export interface VideoCardProps {
 }
 
 export function VideoCard({
+    id,
     thumbnail,
     title,
     uploaderName,
@@ -19,8 +22,16 @@ export function VideoCard({
     viewCount,
     createdAt,
 }: VideoCardProps) {
+    const navigate = useNavigate();
+    const watch = () => {
+        navigate(`/watch/${id}`);
+    };
+
     return (
-        <Card className="group p-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:scale-105 hover:cursor-pointer animate-fade-in-up">
+        <Card
+            onClick={watch}
+            className="group p-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:scale-105 hover:cursor-pointer animate-fade-in-up"
+        >
             <CardHeader className="relative aspect-video bg-neutral-800 overflow-hidden">
                 <img
                     src={thumbnail}
