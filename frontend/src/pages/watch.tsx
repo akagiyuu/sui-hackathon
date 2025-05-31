@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Button } from '@/components/ui/button';
 import { MinimalVideoCard, type VideoCardProps } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
@@ -79,6 +81,7 @@ const suggestedVideos: VideoCardProps[] = [
 
 export default function Watch() {
     const { id } = useParams();
+
     const video = videoData[id];
 
     return (

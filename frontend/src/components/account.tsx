@@ -10,15 +10,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import * as api from '@/api';
-import {
-    CreditCard,
-    List,
-    LogOut,
-    Upload,
-    User,
-    UserCircle,
-    UserCircle2,
-} from 'lucide-react';
+import { List, LogOut, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 
