@@ -28,6 +28,7 @@ async fn build_app() -> Router {
         .layer(DefaultBodyLimit::max(1024 * 1024 * 1024))
         .layer(TraceLayer::new_for_http())
         .layer(middleware::session())
+        .layer(middleware::cors())
         .with_state(state)
 }
 

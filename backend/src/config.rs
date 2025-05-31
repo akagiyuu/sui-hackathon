@@ -6,6 +6,10 @@ const fn default_port() -> u16 {
     3000
 }
 
+fn default_cors_domain() -> String {
+    "http://localhost:5173".to_string()
+}
+
 fn default_jwt_secret() -> String {
     "secret".to_string()
 }
@@ -44,6 +48,9 @@ pub struct Config {
     pub port: u16,
 
     pub database_url: String,
+
+    #[serde(default = "default_cors_domain")]
+    pub cors_domain: String,
 
     #[serde(default = "default_jwt_secret")]
     pub jwt_secret: String,
