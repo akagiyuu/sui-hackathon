@@ -2,16 +2,14 @@ use std::sync::Arc;
 
 use sqlx::PgPool;
 
-use crate::{
-    config::CONFIG,
-    util::{self, auth::OpenIdConnectClient},
-};
+use crate::{config::CONFIG, util::auth::OpenIdConnectClient};
 use openidconnect::reqwest;
 
 pub struct ApiState {
     pub database_pool: PgPool,
     pub http_client: reqwest::Client,
     pub google_client: OpenIdConnectClient,
+    pub microsoft_client: OpenIdConnectClient,
 }
 
 impl ApiState {
@@ -33,10 +31,21 @@ impl ApiState {
         .await
         .unwrap();
 
+        let microsoft_client = OpenIdConnectClient::new(
+            CONFIG.microsoft_client_id.clone(),
+            CONFIG.microsoft_client_secret.clone(),
+            CONFIG.microsoft_issuer_url.clone(),
+            CONFIG.microsoft_redirect_url.clone(),
+            &http_client,
+        )
+        .await
+        .unwrap();
+
         Arc::new(Self {
             database_pool,
             http_client,
             google_client,
+            microsoft_client,
         })
     }
 }
