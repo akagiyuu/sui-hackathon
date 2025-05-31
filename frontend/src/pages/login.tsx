@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import * as api from '@/api';
 
 export function LoginPage() {
     return (
@@ -20,7 +21,11 @@ export function LoginPage() {
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-6">
-                        <Button variant="outline" className="w-full">
+                        <Button
+                            onClick={() => api.auth.login('google')}
+                            variant="outline"
+                            className="w-full"
+                        >
                             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                                 <path
                                     fill="#4285F4"
@@ -41,14 +46,18 @@ export function LoginPage() {
                             </svg>
                             Login with Google
                         </Button>
-                        <Button variant="outline" className="w-full">
+                        <Button
+                            onClick={() => api.auth.login('microsoft')}
+                            variant="outline"
+                            className="w-full"
+                        >
                             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                                 <path fill="#F25022" d="M1 1h10v10H1z" />
                                 <path fill="#00A4EF" d="M13 1h10v10H13z" />
                                 <path fill="#7FBA00" d="M1 13h10v10H1z" />
                                 <path fill="#FFB900" d="M13 13h10v10H13z" />
                             </svg>
-                            Login with Apple
+                            Login with Microsoft
                         </Button>
                     </div>
                 </CardContent>
