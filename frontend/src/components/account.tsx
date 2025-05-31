@@ -10,7 +10,15 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import * as api from '@/api';
-import { CreditCard, LogOut, User, UserCircle } from 'lucide-react';
+import {
+    CreditCard,
+    List,
+    LogOut,
+    Upload,
+    User,
+    UserCircle,
+    UserCircle2,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 
@@ -40,7 +48,11 @@ export function Account() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <User className="w-4 h-4 hover:cursor-pointer" />
+                <Avatar className="hover:cursor-pointer h-8 w-8 rounded-lg">
+                    <AvatarFallback className="bg-red-400 font-bold rounded-full">
+                        {account.name[0]}
+                    </AvatarFallback>
+                </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 className="dark w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
@@ -49,8 +61,8 @@ export function Account() {
             >
                 <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                        <Avatar className="h-8 w-8 rounded-lg">
-                            <AvatarFallback className="rounded-lg">
+                        <Avatar className="hover:cursor-pointer h-8 w-8 rounded-lg">
+                            <AvatarFallback className="bg-red-400 font-bold rounded-full">
                                 {account.name[0]}
                             </AvatarFallback>
                         </Avatar>
@@ -67,22 +79,24 @@ export function Account() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <UserCircle />
-                        Account
+                        <div className="flex flex-cols gap-5">
+                            <List />
+                            My videos
+                        </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <CreditCard />
-                        Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <CreditCard />
-                        Notifications
+                        <Link className="flex flex-cols gap-5" to="/upload">
+                            <Upload />
+                            Upload new video
+                        </Link>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout}>
-                    <LogOut />
-                    Log out
+                    <div className="flex flex-cols gap-5">
+                        <LogOut />
+                        Log out
+                    </div>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

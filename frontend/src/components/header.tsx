@@ -31,18 +31,7 @@ export function Header() {
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-3">
-                        <Link to="/upload">
-                            <Button
-                                variant="ghost"
-                                className="h-9 px-4 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-all duration-300 hover:scale-105 group"
-                            >
-                                <Upload className="w-4 h-4 mr-2 group-hover:animate-bounce" />
-                                Upload
-                            </Button>
-                        </Link>
-                        <Account />
-                    </div>
+                    <Account />
                 </div>
             </div>
         </header>
