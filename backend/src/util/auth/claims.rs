@@ -44,6 +44,7 @@ impl Claims {
         cookie.set_secure(true);
         cookie.set_same_site(SameSite::None);
         cookie.set_http_only(true);
+        cookie.set_path("/");
 
         Ok(cookie)
     }
