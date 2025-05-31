@@ -14,8 +14,9 @@ pub struct Config {
     pub database_url: String,
 
     pub google_client_id: String,
-
     pub google_client_secret: String,
+    pub google_issuer_url: String,
+    pub google_redirect_url: String,
 }
 
 pub static CONFIG: LazyLock<Config> = LazyLock::new(|| {
