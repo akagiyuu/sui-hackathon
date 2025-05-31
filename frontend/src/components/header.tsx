@@ -2,7 +2,8 @@ import { Link } from 'react-router';
 import { Logo } from './logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Upload, User } from 'lucide-react';
+import { Search, Upload } from 'lucide-react';
+import { Account } from './account';
 
 export function Header() {
     return (
@@ -40,12 +41,7 @@ export function Header() {
                                 Upload
                             </Button>
                         </Link>
-                        <Button
-                            variant="ghost"
-                            className="h-9 w-9 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-all duration-300 hover:scale-110"
-                        >
-                            <User className="w-4 h-4" />
-                        </Button>
+                        <Account />
                     </div>
                 </div>
             </div>
