@@ -3,6 +3,7 @@ mod controller;
 mod database;
 mod doc;
 mod error;
+mod middleware;
 mod state;
 mod util;
 
@@ -25,6 +26,7 @@ async fn build_app() -> Router {
         .merge(controller::build())
         .merge(doc::build())
         .layer(TraceLayer::new_for_http())
+        .layer(middleware::session())
         .with_state(state)
 }
 
