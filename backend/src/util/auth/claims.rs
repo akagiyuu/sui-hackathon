@@ -18,12 +18,6 @@ pub static ENCODING_KEY: LazyLock<EncodingKey> =
 pub static DECODING_KEY: LazyLock<DecodingKey> =
     LazyLock::new(|| DecodingKey::from_secret(CONFIG.jwt_secret.as_bytes()));
 
-const BCRYPT_LENGTH: usize = 72;
-
-pub fn random_password() -> String {
-    Alphanumeric.sample_string(&mut rand::rng(), BCRYPT_LENGTH)
-}
-
 #[derive(Serialize, Deserialize)]
 pub struct Claims {
     pub sub: Uuid,
