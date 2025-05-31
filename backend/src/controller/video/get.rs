@@ -6,11 +6,9 @@ use axum::{
 };
 use uuid::Uuid;
 
-use crate::{
-    database::{self, video::Video},
-    error::Result,
-    state::ApiState,
-};
+use crate::{database, error::Result, state::ApiState};
+
+use super::Video;
 
 #[utoipa::path(
     get,
@@ -22,7 +20,10 @@ use crate::{
     ),
 )]
 pub async fn get(state: State<Arc<ApiState>>, Path(id): Path<Uuid>) -> Result<Json<Option<Video>>> {
-    let video = database::video::get(id, &state.database_pool).await?;
+    let video = match database::video::get(id, &state.database_pool).await? {
+        Some(raw) => Some(Video::from_raw(raw, &state.database_pool).await?),
+        None => None,
+    };
 
     Ok(Json(video))
 }
