@@ -1,21 +1,7 @@
 import { Button } from '@/components/ui/button';
-import {
-    MinimalVideoCard,
-    VideoCard,
-    type VideoCardProps,
-} from '@/components/video-card';
+import { MinimalVideoCard, type VideoCardProps } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
-import {
-    ThumbsUp,
-    ThumbsDown,
-    Share,
-    Download,
-    Bell,
-    Eye,
-    Clock,
-    MoreHorizontal,
-    ChevronDown,
-} from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Share, Eye, ChevronDown } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 
 const videoData = {
