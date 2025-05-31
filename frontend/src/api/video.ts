@@ -7,7 +7,7 @@ interface UploadVideo {
     description: string;
 }
 
-const upload = async (data: UploadVideo) => {
+export const upload = async (data: UploadVideo) => {
     const formData = new FormData();
 
     for (const [key, value] of Object.entries(data)) {
@@ -26,16 +26,16 @@ export interface Video {
     thumbnail: string;
     title: string;
     description: string;
-    uploader_email: string;
-    uploader_name: string;
+    uploaderEmail: string;
+    uploaderName: string;
     duration: number;
-    view_count: number;
-    like_count: number;
-    dislike_count: number;
-    created_at: Date;
+    viewCount: number;
+    likeCount: number;
+    dislikeCount: number;
+    createdAt: Date;
 }
 
-const get = async (id: string) => {
+export const get = async (id: string) => {
     const response = await fetchWrapper(`video/${id}`);
 
     if (!response.ok) {
@@ -45,7 +45,7 @@ const get = async (id: string) => {
     return (await response.json()) as Video;
 };
 
-const getAll = async () => {
+export const getAll = async () => {
     const response = await fetchWrapper('video');
 
     if (!response.ok) {

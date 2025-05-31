@@ -3,29 +3,24 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
 
 export interface VideoCardProps {
-    animationDelay: number;
-    thumbnail?: string;
+    thumbnail: string;
     title: string;
-    uploader: string;
+    uploaderName: string;
     duration: number; // millisecond
-    view: number;
+    viewCount: number;
     createdAt: Date;
 }
 
 export function VideoCard({
-    animationDelay,
     thumbnail,
     title,
-    uploader,
+    uploaderName,
     duration,
-    view,
+    viewCount,
     createdAt,
 }: VideoCardProps) {
     return (
-        <Card
-            className="group p-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:scale-105 hover:cursor-pointer animate-fade-in-up"
-            style={{ animationDelay: `${animationDelay}ms` }}
-        >
+        <Card className="group p-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:scale-105 hover:cursor-pointer animate-fade-in-up">
             <CardHeader className="relative aspect-video bg-neutral-800 overflow-hidden">
                 <img
                     src={thumbnail}
@@ -48,12 +43,12 @@ export function VideoCard({
                     {title}
                 </h3>
                 <p className="text-neutral-400 text-sm mb-2 group-hover:text-neutral-300 transition-colors duration-300">
-                    {uploader}
+                    {uploaderName}
                 </p>
                 <div className="flex items-center text-xs text-neutral-500 space-x-2 group-hover:text-neutral-400 transition-colors duration-300">
                     <span className="flex items-center space-x-1">
                         <Eye className="w-3 h-3" />
-                        <span>{formatNumber(view)}</span>
+                        <span>{formatNumber(viewCount)}</span>
                     </span>
                     <span>•</span>
                     <span>{formatDate(createdAt)}</span>
@@ -69,7 +64,7 @@ export function MinimalVideoCard({
     title,
     uploader,
     duration,
-    view,
+    viewCount: view,
     createdAt,
 }: VideoCardProps) {
     return (

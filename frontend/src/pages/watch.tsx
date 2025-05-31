@@ -29,7 +29,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
     {
@@ -38,7 +38,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
     {
@@ -47,7 +47,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
     {
@@ -56,7 +56,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
     {
@@ -65,7 +65,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
     {
@@ -74,7 +74,7 @@ const suggestedVideos: VideoCardProps[] = [
         title: 'Building a Modern Web App with Next.js',
         uploader: 'Tech Tutorials',
         duration: 600,
-        view: 100,
+        viewCount: 100,
         createdAt: new Date(Date.now()),
     },
 ];
