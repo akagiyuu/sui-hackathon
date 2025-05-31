@@ -4,6 +4,7 @@ import {
     VideoCard,
     type VideoCardProps,
 } from '@/components/video-card';
+import { formatDate } from '@/lib/utils';
 import {
     ThumbsUp,
     ThumbsDown,
@@ -167,7 +168,7 @@ export default function Watch() {
                                 <span>{video.view}</span>
                             </span>
                             <span>•</span>
-                            <span>{video.createdAt.toString()}</span>
+                            <span>{formatDate(video.createdAt)}</span>
                         </div>
 
                         <div className="bg-neutral-900 rounded-xl p-4 border border-neutral-800 hover:border-neutral-700 transition-all duration-300 animate-fade-in-up">
@@ -193,7 +194,9 @@ export default function Watch() {
                 </div>
 
                 <div className="space-y-4 animate-fade-in-delay">
-                    <h3 className="font-semibold text-white">Suggested Videos</h3>
+                    <h3 className="font-semibold text-white">
+                        Suggested Videos
+                    </h3>
                     <div className="space-y-3">
                         {suggestedVideos.map((video, index) => (
                             <Link

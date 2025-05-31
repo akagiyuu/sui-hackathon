@@ -1,5 +1,6 @@
 import { Clock, Eye, Play } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
+import { formatDate } from '@/lib/utils';
 
 export interface VideoCardProps {
     animationDelay: number;
@@ -55,7 +56,7 @@ export function VideoCard({
                         <span>{view}</span>
                     </span>
                     <span>•</span>
-                    <span>{createdAt.toISOString()}</span>
+                    <span>{formatDate(createdAt)}</span>
                 </div>
             </CardContent>
         </Card>
@@ -101,7 +102,7 @@ export function MinimalVideoCard({
                             <span>{view}</span>
                         </span>
                         <span>•</span>
-                        <span>{createdAt.toString()}</span>
+                        <span>{formatDate(createdAt)}</span>
                     </div>
                 </div>
             </div>
