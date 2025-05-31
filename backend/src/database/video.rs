@@ -1,3 +1,5 @@
+use chrono::{DateTime, Utc};
+use futures::Stream;
 use sqlx::{PgExecutor, Result};
 use uuid::Uuid;
 
@@ -10,7 +12,7 @@ pub struct CreateVideo {
     pub duration: i32,
 }
 
-pub async fn create(params: &CreateVideo, executror: impl PgExecutor<'_>) -> Result<Uuid> {
+pub async fn create(params: &CreateVideo, executor: impl PgExecutor<'_>) -> Result<Uuid> {
     sqlx::query_scalar!(
         r#"
             INSERT INTO videos(
@@ -30,6 +32,30 @@ pub async fn create(params: &CreateVideo, executror: impl PgExecutor<'_>) -> Res
         params.uploader_id,
         params.duration,
     )
-    .fetch_one(executror)
+    .fetch_one(executor)
     .await
+}
+
+pub struct Video {
+    pub id: Uuid,
+    pub video_blob_id: String,
+    pub thumbnail_blob_id: String,
+    pub title: String,
+    pub description: String,
+    pub uploader_id: Uuid,
+    pub duration: i32,
+    pub view_count: i32,
+    pub like_count: i32,
+    pub dislike_count: i32,
+    pub created_at: DateTime<Utc>,
+}
+
+pub async fn get(id: Uuid, executor: impl PgExecutor<'_>) -> Result<Video> {
+    sqlx::query_as!(Video, "SELECT * FROM videos WHERE id = $1", id)
+        .fetch_one(executor)
+        .await
+}
+
+pub fn get_all<'a>(executor: impl PgExecutor<'a> + 'a) -> impl Stream<Item = Result<Video>> {
+    sqlx::query_as!(Video, "SELECT * FROM videos").fetch(executor)
 }
