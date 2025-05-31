@@ -3,11 +3,13 @@ use std::sync::{Arc, LazyLock};
 use axum::{RequestPartsExt, extract::FromRequestParts, http::request::Parts};
 use axum_extra::{
     TypedHeader,
+    extract::{CookieJar, cookie::Cookie},
     headers::{Authorization, authorization::Bearer},
 };
 use chrono::Local;
 use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
+use tower_sessions::cookie::SameSite;
 use uuid::Uuid;
 
 use crate::{config::CONFIG, error::AuthError, state::ApiState};
@@ -16,6 +18,8 @@ pub static ENCODING_KEY: LazyLock<EncodingKey> =
     LazyLock::new(|| EncodingKey::from_secret(CONFIG.jwt_secret.as_bytes()));
 pub static DECODING_KEY: LazyLock<DecodingKey> =
     LazyLock::new(|| DecodingKey::from_secret(CONFIG.jwt_secret.as_bytes()));
+
+const TOKEN_KEY: &str = "token";
 
 #[derive(Serialize, Deserialize)]
 pub struct Claims {
@@ -33,8 +37,15 @@ impl Claims {
         }
     }
 
-    pub fn as_token(&self) -> jsonwebtoken::errors::Result<String> {
-        jsonwebtoken::encode(&Header::default(), &self, &ENCODING_KEY)
+    pub fn as_cookie(&self) -> jsonwebtoken::errors::Result<Cookie<'static>> {
+        let token = jsonwebtoken::encode(&Header::default(), &self, &ENCODING_KEY)?;
+
+        let mut cookie = Cookie::new(TOKEN_KEY, token);
+        cookie.set_secure(true);
+        cookie.set_same_site(SameSite::None);
+        cookie.set_http_only(true);
+
+        Ok(cookie)
     }
 }
 
@@ -45,11 +56,12 @@ impl FromRequestParts<Arc<ApiState>> for Claims {
         parts: &mut Parts,
         _: &Arc<ApiState>,
     ) -> Result<Self, Self::Rejection> {
-        let TypedHeader(Authorization(bearer)) = parts
-            .extract::<TypedHeader<Authorization<Bearer>>>()
-            .await?;
+        let jar = parts.extract::<CookieJar>().await.unwrap();
+        let token = jar
+            .get(TOKEN_KEY)
+            .ok_or(AuthError::MissingAuthToken)?
+            .value();
 
-        let token = bearer.token();
         let token = jsonwebtoken::decode::<Claims>(token, &DECODING_KEY, &Validation::default())
             .map_err(|error| {
                 tracing::error!(error = ?error);
