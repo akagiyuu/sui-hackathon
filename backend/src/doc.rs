@@ -36,6 +36,7 @@ impl Modify for SecurityAddon {
         controller::auth::microsoft::microsoft,
 
         controller::video::get,
+        controller::video::get_all
     ),
     modifiers(&SecurityAddon),
 )]

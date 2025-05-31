@@ -20,7 +20,6 @@ use crate::{
     params(
         ("id" = Uuid, Path, description = "Video id")
     ),
-    security(("jwt_token" = []))
 )]
 pub async fn get(state: State<Arc<ApiState>>, Path(id): Path<Uuid>) -> Result<Json<Option<Video>>> {
     let video = database::video::get(id, &state.database_pool).await?;
