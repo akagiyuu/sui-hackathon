@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router';
-import { Home } from './pages/home';
+import { HomePage } from './pages/home';
 import { MainLayout } from './layout';
-import { UploadForm } from './pages/upload';
-import Watch from './pages/watch';
+import { UploadPage } from './pages/upload';
+import WatchPage from './pages/watch';
 import { LoginPage } from './pages/login';
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
         <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route element={<MainLayout />}>
-                <Route index element={<Home />} />
-                <Route path="/upload" element={<UploadForm />} />
-                <Route path="/watch/:id" element={<Watch />} />
+                <Route index element={<HomePage />} />
+                <Route path="/upload" element={<UploadPage />} />
+                <Route path="/watch/:id" element={<WatchPage />} />
             </Route>
         </Routes>
     );

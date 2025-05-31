@@ -3,7 +3,7 @@ import * as api from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-export function Home() {
+export function HomePage() {
     const {
         data: videos,
         error,

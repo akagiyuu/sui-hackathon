@@ -70,19 +70,15 @@ export function VideoCard({
 }
 
 export function MinimalVideoCard({
-    animationDelay,
     thumbnail,
     title,
-    uploader,
+    uploaderName,
     duration,
-    viewCount: view,
+    viewCount,
     createdAt,
 }: VideoCardProps) {
     return (
-        <article
-            className="overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/20"
-            style={{ animationDelay: `${animationDelay}ms` }}
-        >
+        <article className="overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/20">
             <div className="flex space-x-3">
                 <div className="relative w-32 aspect-video bg-neutral-800 rounded overflow-hidden flex-shrink-0">
                     <img
@@ -100,12 +96,12 @@ export function MinimalVideoCard({
                         {title}
                     </h4>
                     <p className="text-xs text-neutral-400 mb-1 group-hover:text-neutral-300 transition-colors duration-300">
-                        {uploader}
+                        {uploaderName}
                     </p>
                     <div className="flex items-center text-xs text-neutral-500 space-x-1 group-hover:text-neutral-400 transition-colors duration-300">
                         <span className="flex items-center space-x-1">
                             <Eye className="w-2 h-2" />
-                            <span>{formatNumber(view)}</span>
+                            <span>{formatNumber(viewCount)}</span>
                         </span>
                         <span>•</span>
                         <span>{formatDate(createdAt)}</span>

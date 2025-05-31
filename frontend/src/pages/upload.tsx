@@ -50,7 +50,7 @@ const schema = z.object({
     description: z.string().min(1, 'Description is required'),
 });
 
-export function UploadForm() {
+export function UploadPage() {
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {

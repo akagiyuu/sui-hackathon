@@ -45,6 +45,16 @@ export const get = async (id: string) => {
     return (await response.json()) as Video;
 };
 
+export const getSuggestion = async (id: string) => {
+    const response = await fetchWrapper(`video/${id}/suggestion`);
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch video list');
+    }
+
+    return (await response.json()) as Video[];
+};
+
 export const getAll = async () => {
     const response = await fetchWrapper('video');
 
