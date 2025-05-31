@@ -3,6 +3,7 @@ mod auth;
 pub use auth::*;
 
 use axum::{Json, http::StatusCode, response::IntoResponse};
+use axum_extra::typed_header::TypedHeaderRejection;
 use serde::Serialize;
 use utoipa::ToSchema;
 
@@ -20,6 +21,12 @@ pub enum Error {
 
     #[error("Unknown error: {0}")]
     Other(#[from] anyhow::Error),
+}
+
+impl From<TypedHeaderRejection> for Error {
+    fn from(_: TypedHeaderRejection) -> Self {
+        AuthError::MissingAuthToken.into()
+    }
 }
 
 impl IntoResponse for Error {
