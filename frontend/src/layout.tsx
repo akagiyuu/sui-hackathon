@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 
 export function MainLayout() {
     return (
-        <div>
+        <div className="min-h-screen bg-neutral-950 text-white">
             <Header></Header>
             <main>
                 <Outlet />
