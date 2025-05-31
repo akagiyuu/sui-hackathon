@@ -4,6 +4,7 @@ import {
     VideoCard,
     type VideoCardProps,
 } from '@/components/video-card';
+import { formatDate, formatNumber } from '@/lib/utils';
 import {
     ThumbsUp,
     ThumbsDown,
@@ -137,7 +138,7 @@ export default function Watch() {
                                             className="rounded-l-full text-white hover:bg-neutral-700 px-4 hover:scale-105 transition-all duration-300"
                                         >
                                             <ThumbsUp className="w-4 h-4 mr-2" />
-                                            {video.like}
+                                            {formatNumber(video.like)}
                                         </Button>
                                         <div className="w-px h-6 bg-neutral-700" />
                                         <Button
@@ -146,7 +147,7 @@ export default function Watch() {
                                             className="rounded-r-full text-white hover:bg-neutral-700 px-3 hover:scale-105 transition-all duration-300"
                                         >
                                             <ThumbsDown className="w-4 h-4" />
-                                            {video.dislike}
+                                            {formatNumber(video.dislike)}
                                         </Button>
                                     </div>
                                     <Button
@@ -164,10 +165,10 @@ export default function Watch() {
                         <div className="flex items-center space-x-4 text-sm text-neutral-400 animate-fade-in">
                             <span className="flex items-center space-x-1">
                                 <Eye className="w-4 h-4" />
-                                <span>{video.view}</span>
+                                <span>{formatNumber(video.view)}</span>
                             </span>
                             <span>•</span>
-                            <span>{video.createdAt.toString()}</span>
+                            <span>{formatDate(video.createdAt)}</span>
                         </div>
 
                         <div className="bg-neutral-900 rounded-xl p-4 border border-neutral-800 hover:border-neutral-700 transition-all duration-300 animate-fade-in-up">
@@ -193,7 +194,9 @@ export default function Watch() {
                 </div>
 
                 <div className="space-y-4 animate-fade-in-delay">
-                    <h3 className="font-semibold text-white">Suggested Videos</h3>
+                    <h3 className="font-semibold text-white">
+                        Suggested Videos
+                    </h3>
                     <div className="space-y-3">
                         {suggestedVideos.map((video, index) => (
                             <Link

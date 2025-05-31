@@ -1,5 +1,6 @@
 import { Clock, Eye, Play } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
+import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
 
 export interface VideoCardProps {
     animationDelay: number;
@@ -34,7 +35,7 @@ export function VideoCard({
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
                 <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded font-medium flex items-center space-x-1 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
                     <Clock className="w-3 h-3" />
-                    <span>{duration}</span>
+                    <span>{formatDuration(duration)}</span>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -52,10 +53,10 @@ export function VideoCard({
                 <div className="flex items-center text-xs text-neutral-500 space-x-2 group-hover:text-neutral-400 transition-colors duration-300">
                     <span className="flex items-center space-x-1">
                         <Eye className="w-3 h-3" />
-                        <span>{view}</span>
+                        <span>{formatNumber(view)}</span>
                     </span>
                     <span>•</span>
-                    <span>{createdAt.toISOString()}</span>
+                    <span>{formatDate(createdAt)}</span>
                 </div>
             </CardContent>
         </Card>
@@ -85,7 +86,7 @@ export function MinimalVideoCard({
                     />
                     <div className="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded flex items-center space-x-1">
                         <Clock className="w-2 h-2" />
-                        <span>{duration}</span>
+                        <span>{formatDuration(duration)}</span>
                     </div>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -98,10 +99,10 @@ export function MinimalVideoCard({
                     <div className="flex items-center text-xs text-neutral-500 space-x-1 group-hover:text-neutral-400 transition-colors duration-300">
                         <span className="flex items-center space-x-1">
                             <Eye className="w-2 h-2" />
-                            <span>{view}</span>
+                            <span>{formatNumber(view)}</span>
                         </span>
                         <span>•</span>
-                        <span>{createdAt.toString()}</span>
+                        <span>{formatDate(createdAt)}</span>
                     </div>
                 </div>
             </div>
