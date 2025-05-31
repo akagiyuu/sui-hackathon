@@ -1,18 +1,10 @@
 use sqlx::{PgExecutor, Result};
 use uuid::Uuid;
 
-use crate::util;
-
-pub async fn create(
-    email: &str,
-    password: Option<String>,
-    executor: impl PgExecutor<'_>,
-) -> Result<Uuid> {
-    let password = password.unwrap_or_else(util::auth::random_password);
-
+pub async fn create(email: &str, name: &str, executor: impl PgExecutor<'_>) -> Result<Uuid> {
     sqlx::query_scalar!(
         r#"
-            INSERT INTO accounts(email, password)
+            INSERT INTO accounts(email, name)
             VALUES(
                 $1,
                 $2
@@ -20,14 +12,23 @@ pub async fn create(
             RETURNING id
         "#,
         email,
-        password,
+        name,
     )
     .fetch_one(executor)
     .await
 }
 
-pub async fn get_password(email: &str, executor: impl PgExecutor<'_>) -> Result<String> {
-    sqlx::query_scalar!("SELECT password FROM accounts WHERE email = $1", email)
-        .fetch_one(executor)
-        .await
+pub struct Account {
+    pub email: String,
+    pub name: String,
+}
+
+pub async fn get(id: Uuid, executor: impl PgExecutor<'_>) -> Result<Account> {
+    sqlx::query_as!(
+        Account,
+        "SELECT email, name FROM accounts WHERE id = $1",
+        id
+    )
+    .fetch_one(executor)
+    .await
 }
