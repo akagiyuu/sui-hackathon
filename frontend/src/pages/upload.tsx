@@ -31,7 +31,11 @@ import {
     FileUploadList,
     FileUploadTrigger,
 } from '@/components/ui/file-upload';
-import { Image, Video, X } from 'lucide-react';
+import { Image, Loader2, Video, X } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import * as api from '@/api';
+import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 const schema = z.object({
     video: z
@@ -46,7 +50,7 @@ const schema = z.object({
     description: z.string().min(1, 'Description is required'),
 });
 
-export function UploadForm() {
+export function UploadPage() {
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
@@ -55,6 +59,19 @@ export function UploadForm() {
             title: '',
             description: '',
         },
+    });
+
+    const { status, mutate } = useMutation({
+        mutationFn: async (values: z.infer<typeof schema>) => {
+            console.log(values);
+            return api.video.upload({
+                ...values,
+                video: values.video[0],
+                thumbnail: values.thumbnail[0],
+            });
+        },
+        onSuccess: () => toast.info('Upload success'),
+        onError: (error) => toast.error(error.message),
     });
 
     return (
@@ -70,7 +87,7 @@ export function UploadForm() {
             </div>
             <Form {...form}>
                 <form
-                    onSubmit={form.handleSubmit((data) => console.log(data))}
+                    onSubmit={form.handleSubmit((data) => mutate(data))}
                     className="space-y-8"
                 >
                     <div className="grid gap-10">
@@ -87,7 +104,7 @@ export function UploadForm() {
                                         <FileUpload
                                             value={field.value}
                                             onValueChange={field.onChange}
-                                            accept="image/*"
+                                            accept="video/*"
                                             maxFiles={2}
                                             onFileReject={(_, message) => {
                                                 form.setError('video', {
@@ -288,8 +305,15 @@ export function UploadForm() {
                         <Button
                             type="submit"
                             className="bg-white text-neutral-900 hover:bg-neutral-100 font-medium min-w-[120px] disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transition-all duration-300 disabled:hover:scale-100"
+                            disabled={status === 'pending'}
                         >
-                            Upload Video
+                            <Loader2
+                                className={cn(
+                                    'animate-spin',
+                                    status === 'pending' ? '' : 'hidden',
+                                )}
+                            />
+                            Upload
                         </Button>
                     </div>
                 </form>

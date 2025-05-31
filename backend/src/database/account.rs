@@ -29,6 +29,7 @@ pub async fn get_by_email(email: &str, executor: impl PgExecutor<'_>) -> Result<
 }
 
 #[derive(Serialize, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct Account {
     pub email: String,
     pub name: String,

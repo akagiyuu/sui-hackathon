@@ -1,5 +1,6 @@
 mod get;
 mod get_all;
+mod get_suggestion;
 mod upload;
 
 use std::sync::Arc;
@@ -15,9 +16,11 @@ use crate::{database, error::Result, state::ApiState, util::walrus};
 
 pub use get::*;
 pub use get_all::*;
+pub use get_suggestion::*;
 pub use upload::*;
 
 #[derive(Serialize, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct Video {
     pub id: Uuid,
     pub video: String,
@@ -60,5 +63,6 @@ pub fn build() -> Router<Arc<ApiState>> {
     Router::new()
         .route("/video", routing::post(upload))
         .route("/video/{id}", routing::get(get))
+        .route("/video/{id}/suggestion", routing::get(get_suggestion))
         .route("/video", routing::get(get_all))
 }

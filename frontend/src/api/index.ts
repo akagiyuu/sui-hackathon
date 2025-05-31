@@ -10,3 +10,4 @@ export const fetchWrapper = (url: RequestInfo | URL, init?: RequestInit) => {
 };
 
 export * as auth from './auth';
+export * as video from './video';

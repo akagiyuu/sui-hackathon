@@ -1,30 +1,36 @@
 import { Clock, Eye, Play } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
+import { useNavigate } from 'react-router';
 
 export interface VideoCardProps {
-    animationDelay: number;
-    thumbnail?: string;
+    id: string;
+    thumbnail: string;
     title: string;
-    uploader: string;
-    duration: number; // millisecond
-    view: number;
+    uploaderName: string;
+    duration: number;
+    viewCount: number;
     createdAt: Date;
 }
 
 export function VideoCard({
-    animationDelay,
+    id,
     thumbnail,
     title,
-    uploader,
+    uploaderName,
     duration,
-    view,
+    viewCount,
     createdAt,
 }: VideoCardProps) {
+    const navigate = useNavigate();
+    const watch = () => {
+        navigate(`/watch/${id}`);
+    };
+
     return (
         <Card
+            onClick={watch}
             className="group p-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:scale-105 hover:cursor-pointer animate-fade-in-up"
-            style={{ animationDelay: `${animationDelay}ms` }}
         >
             <CardHeader className="relative aspect-video bg-neutral-800 overflow-hidden">
                 <img
@@ -48,12 +54,12 @@ export function VideoCard({
                     {title}
                 </h3>
                 <p className="text-neutral-400 text-sm mb-2 group-hover:text-neutral-300 transition-colors duration-300">
-                    {uploader}
+                    {uploaderName}
                 </p>
                 <div className="flex items-center text-xs text-neutral-500 space-x-2 group-hover:text-neutral-400 transition-colors duration-300">
                     <span className="flex items-center space-x-1">
                         <Eye className="w-3 h-3" />
-                        <span>{formatNumber(view)}</span>
+                        <span>{formatNumber(viewCount)}</span>
                     </span>
                     <span>•</span>
                     <span>{formatDate(createdAt)}</span>
@@ -64,19 +70,15 @@ export function VideoCard({
 }
 
 export function MinimalVideoCard({
-    animationDelay,
     thumbnail,
     title,
-    uploader,
+    uploaderName,
     duration,
-    view,
+    viewCount,
     createdAt,
 }: VideoCardProps) {
     return (
-        <article
-            className="overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/20"
-            style={{ animationDelay: `${animationDelay}ms` }}
-        >
+        <article className="overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/20">
             <div className="flex space-x-3">
                 <div className="relative w-32 aspect-video bg-neutral-800 rounded overflow-hidden flex-shrink-0">
                     <img
@@ -94,12 +96,12 @@ export function MinimalVideoCard({
                         {title}
                     </h4>
                     <p className="text-xs text-neutral-400 mb-1 group-hover:text-neutral-300 transition-colors duration-300">
-                        {uploader}
+                        {uploaderName}
                     </p>
                     <div className="flex items-center text-xs text-neutral-500 space-x-1 group-hover:text-neutral-400 transition-colors duration-300">
                         <span className="flex items-center space-x-1">
                             <Eye className="w-2 h-2" />
-                            <span>{formatNumber(view)}</span>
+                            <span>{formatNumber(viewCount)}</span>
                         </span>
                         <span>•</span>
                         <span>{formatDate(createdAt)}</span>
