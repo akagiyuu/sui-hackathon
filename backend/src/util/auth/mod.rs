@@ -1,4 +1,5 @@
-mod oidc;
 mod claims;
+mod oidc;
 
-pub use oidc::OpenIdConnectClient;
+pub use claims::*;
+pub use oidc::*;

@@ -6,7 +6,7 @@ use axum_extra::{
     headers::{Authorization, authorization::Bearer},
 };
 use chrono::Local;
-use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation, encode};
+use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation};
 use rand::distr::{Alphanumeric, SampleString};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
