@@ -10,7 +10,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import * as api from '@/api';
-import { List, LogOut, Upload } from 'lucide-react';
+import { LogOut, Upload, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 
@@ -71,11 +71,10 @@ export function Account() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <Link
-                            className="flex flex-cols gap-5"
-                            to="/profile"
-                        ></Link>
-                        Profile
+                        <Link className="flex flex-cols gap-5" to="/profile">
+                            <User />
+                            Profile
+                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Link className="flex flex-cols gap-5" to="/upload">
