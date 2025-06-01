@@ -35,7 +35,6 @@ import { Image, Loader2, Video, X } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import * as api from '@/api';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
 
 const schema = z.object({
     video: z
