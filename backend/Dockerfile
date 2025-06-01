@@ -19,7 +19,7 @@ RUN cargo build --release
 FROM debian:bookworm AS application
 
 RUN apt-get update \
-    && apt-get install libssl3 -y \
+    && apt-get install libssl3 ca-certificates -y \
     && apt-get clean
 
 WORKDIR /app
