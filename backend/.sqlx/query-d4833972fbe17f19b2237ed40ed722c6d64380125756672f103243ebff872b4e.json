@@ -1,0 +1,82 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT\n                id,\n                video_blob_id,\n                thumbnail_blob_id,\n                title,\n                description,\n                uploader_id,\n                duration,\n                view_count,\n                like_count,\n                dislike_count,\n                created_at\n            FROM videos\n            WHERE uploader_id = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "video_blob_id",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "thumbnail_blob_id",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "title",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "description",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "uploader_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 6,
+        "name": "duration",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 7,
+        "name": "view_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 8,
+        "name": "like_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "dislike_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "d4833972fbe17f19b2237ed40ed722c6d64380125756672f103243ebff872b4e"
+}
