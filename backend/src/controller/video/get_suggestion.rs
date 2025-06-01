@@ -4,7 +4,7 @@ use axum::{
     Json,
     extract::{Path, State},
 };
-use futures::{StreamExt, TryStreamExt};
+use futures::{StreamExt, TryStreamExt, stream};
 use rand::seq::IteratorRandom;
 use uuid::Uuid;
 
@@ -27,15 +27,20 @@ pub async fn get_suggestion(
     state: State<Arc<ApiState>>,
     Path(id): Path<Uuid>,
 ) -> Result<Json<Vec<Video>>> {
-    let videos = database::video::get_all(&state.database_pool)
-        .then(|raw| async { Video::from_raw(raw?, &state.database_pool).await })
-        .try_collect::<Vec<_>>()
-        .await?;
+    let videos = database::video::query_all(None, &state.database_pool).await?;
 
-    let suggestion = videos
-        .into_iter()
-        .filter(|video| video.id != id)
-        .choose_multiple(&mut rand::rng(), RANDOM_AMOUNT);
+    let video_iter = stream::iter(
+        videos
+            .into_iter()
+            .filter(|video| video.id != id)
+            .choose_multiple(&mut rand::rng(), RANDOM_AMOUNT),
+    );
+    tokio::pin!(video_iter);
+
+    let suggestion = video_iter
+        .then(|raw| Video::from_raw(raw, &state.database_pool))
+        .try_collect()
+        .await?;
 
     Ok(Json(suggestion))
 }

@@ -1,5 +1,4 @@
 use chrono::{DateTime, Utc};
-use futures::Stream;
 use sqlx::{PgExecutor, Result};
 use uuid::Uuid;
 
@@ -51,11 +50,54 @@ pub struct Video {
 }
 
 pub async fn get(id: Uuid, executor: impl PgExecutor<'_>) -> Result<Option<Video>> {
-    sqlx::query_as!(Video, "SELECT * FROM videos WHERE id = $1", id)
-        .fetch_optional(executor)
-        .await
+    sqlx::query_as!(
+        Video,
+        r#"
+            SELECT
+                id,
+                video_blob_id,
+                thumbnail_blob_id,
+                title,
+                description,
+                uploader_id,
+                duration,
+                view_count,
+                like_count,
+                dislike_count,
+                created_at
+            FROM videos
+            WHERE id = $1
+        "#,
+        id
+    )
+    .fetch_optional(executor)
+    .await
 }
 
-pub fn get_all<'a>(executor: impl PgExecutor<'a> + 'a) -> impl Stream<Item = Result<Video>> {
-    sqlx::query_as!(Video, "SELECT * FROM videos").fetch(executor)
+pub async fn query_all(query: Option<&str>, executor: impl PgExecutor<'_>) -> Result<Vec<Video>> {
+    sqlx::query_as!(
+        Video,
+        r#"
+            SELECT
+                id,
+                video_blob_id,
+                thumbnail_blob_id,
+                title,
+                description,
+                uploader_id,
+                duration,
+                view_count,
+                like_count,
+                dislike_count,
+                created_at
+            FROM videos
+            WHERE
+              ($1::text IS NULL OR $1::text = '')
+              OR search_vector @@ plainto_tsquery('english', $1::text)
+            ORDER BY ts_rank(search_vector, plainto_tsquery('english', $1::text)) DESC
+        "#,
+        query
+    )
+    .fetch_all(executor)
+    .await
 }

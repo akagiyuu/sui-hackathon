@@ -14,10 +14,14 @@ export const upload = async (data: UploadVideo) => {
         formData.append(key, value);
     }
 
-    fetchWrapper('video', {
+    const response = await fetchWrapper('video', {
         method: 'POST',
         body: formData,
     });
+
+    if (!response.ok) {
+        throw new Error('Failed to upload book');
+    }
 };
 
 export interface Video {
@@ -55,8 +59,8 @@ export const getSuggestion = async (id: string) => {
     return (await response.json()) as Video[];
 };
 
-export const getAll = async () => {
-    const response = await fetchWrapper('video');
+export const queryAll = async (query: string | null) => {
+    const response = await fetchWrapper(`video?query=${query ?? ''}`);
 
     if (!response.ok) {
         throw new Error('Failed to fetch video list');

@@ -64,7 +64,7 @@ export function UploadPage() {
     const { status, mutate } = useMutation({
         mutationFn: async (values: z.infer<typeof schema>) => {
             console.log(values);
-            return api.video.upload({
+            return await api.video.upload({
                 ...values,
                 video: values.video[0],
                 thumbnail: values.thumbnail[0],
@@ -307,12 +307,11 @@ export function UploadPage() {
                             className="bg-white text-neutral-900 hover:bg-neutral-100 font-medium min-w-[120px] disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transition-all duration-300 disabled:hover:scale-100"
                             disabled={status === 'pending'}
                         >
-                            <Loader2
-                                className={cn(
-                                    'animate-spin',
-                                    status === 'pending' ? '' : 'hidden',
-                                )}
-                            />
+                            {status === 'pending' ? (
+                                <Loader2 className="animate-spin" />
+                            ) : (
+                                <></>
+                            )}
                             Upload
                         </Button>
                     </div>

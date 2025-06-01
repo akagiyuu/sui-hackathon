@@ -2,15 +2,19 @@ import { VideoCard } from '@/components/video-card';
 import * as api from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { useSearchParams } from 'react-router';
 
 export function HomePage() {
+    const [searchParams, _] = useSearchParams();
+    const query = searchParams.get('query');
+
     const {
         data: videos,
         error,
         isPending,
     } = useQuery({
         queryKey: ['videos'],
-        queryFn: () => api.video.getAll(),
+        queryFn: () => api.video.queryAll(query),
     });
 
     if (isPending) {
