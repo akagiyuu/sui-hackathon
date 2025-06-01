@@ -1,8 +1,9 @@
 import { Clock, Play } from 'lucide-react';
-import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
+import { cn, formatDate, formatDuration, formatNumber } from '@/lib/utils';
 import { useNavigate } from 'react-router';
 
 export interface VideoCardProps {
+    className?: string;
     id: string;
     thumbnail: string;
     title: string;
@@ -14,6 +15,7 @@ export interface VideoCardProps {
 }
 
 export function VideoCard({
+    className,
     id,
     thumbnail,
     title,
@@ -31,9 +33,14 @@ export function VideoCard({
     return (
         <div
             onClick={watch}
-            className="w-fit my-5 grid grid-cols-2 gap-5 group p-0 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:cursor-pointer animate-fade-in-up"
+            className="w-fit my-5 flex flex-cols-2 gap-5 group p-0 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:cursor-pointer animate-fade-in-up"
         >
-            <div className="max-w-md relative aspect-video rounded-xl overflow-hidden">
+            <div
+                className={cn(
+                    'relative aspect-video rounded-xl overflow-hidden',
+                    className,
+                )}
+            >
                 <img
                     src={thumbnail}
                     alt={title}

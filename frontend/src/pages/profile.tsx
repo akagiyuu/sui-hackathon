@@ -2,7 +2,7 @@ import * as api from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { VideoList } from '@/components/video-list';
+import { VideoCard } from '@/components/video-card';
 
 function VideoTab() {
     const {
@@ -27,7 +27,13 @@ function VideoTab() {
         return <p className="text-center text-2xl m-5">No video found</p>;
     }
 
-    return <VideoList videos={videos} />;
+    return (
+        <div>
+            {videos.map((video) => (
+                <VideoCard className='w-md' {...video} />
+            ))}
+        </div>
+    );
 }
 
 export function Profile() {
