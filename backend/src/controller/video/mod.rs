@@ -1,6 +1,6 @@
 mod get;
-mod query_all;
 mod get_suggestion;
+mod query_all;
 mod upload;
 
 use std::sync::Arc;
@@ -15,8 +15,8 @@ use uuid::Uuid;
 use crate::{database, error::Result, state::ApiState, util::walrus};
 
 pub use get::*;
-pub use query_all::*;
 pub use get_suggestion::*;
+pub use query_all::*;
 pub use upload::*;
 
 #[derive(Serialize, ToSchema)]
