@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { VideoCard } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ThumbsUp, ThumbsDown, Share } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Share, Download } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import * as api from '@/api';
 import { toast } from 'sonner';
@@ -158,6 +158,17 @@ function Video() {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 px-4 hover:scale-105 transition-all duration-300"
+                                onClick={() =>
+                                    window.location.replace(video.video)
+                                }
+                            >
+                                <Download className="w-4 h-4 mr-2" />
+                                Download
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -216,7 +227,7 @@ function Suggestion() {
                         to={`/watch/${video.id}`}
                         className="group animate-fade-in-up"
                     >
-                        <VideoCard className='w-xs' {...video} />
+                        <VideoCard className="w-xs" {...video} />
                     </Link>
                 ))}
             </div>
