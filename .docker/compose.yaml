@@ -2,7 +2,7 @@ services:
   sui-backend:
     container_name: sui-backend
     environment:
-      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@mc-server.arisavinh.dev:5432/${PG_DB}
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@sui-database:5432/${PG_DB}
       PUBLIC_CORS_DOMAIN: https://${HOST_NAME}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
