@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { MinimalVideoCard } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ThumbsUp, ThumbsDown, Share, Eye } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import * as api from '@/api';
@@ -18,9 +18,11 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import type { ReactionKind } from '@/api/video';
 
 function Video() {
     const params = useParams();
+    const queryClient = useQueryClient();
 
     const {
         data: video,
@@ -29,6 +31,17 @@ function Video() {
     } = useQuery({
         queryKey: ['video', params.id],
         queryFn: () => api.video.get(params.id!),
+    });
+
+    const { mutate: react } = useMutation({
+        mutationFn: (kind: ReactionKind) => api.video.react(params.id!, kind),
+        onSuccess: () => {
+            toast.success('Add reaction successfully');
+            queryClient.invalidateQueries({
+                queryKey: ['video', params.id],
+            });
+        },
+        onError: (error) => toast.error(error.message),
     });
 
     if (isPending) {
@@ -81,6 +94,7 @@ function Video() {
                                     variant="ghost"
                                     size="sm"
                                     className="rounded-l-full text-white hover:bg-neutral-700 px-4 hover:scale-105 transition-all duration-300"
+                                    onClick={() => react('like')}
                                 >
                                     <ThumbsUp className="w-4 h-4 mr-2" />
                                     {formatNumber(video.likeCount)}
@@ -90,6 +104,7 @@ function Video() {
                                     variant="ghost"
                                     size="sm"
                                     className="rounded-r-full text-white hover:bg-neutral-700 px-3 hover:scale-105 transition-all duration-300"
+                                    onClick={() => react('dislike')}
                                 >
                                     <ThumbsDown className="w-4 h-4" />
                                     {formatNumber(video.dislikeCount)}

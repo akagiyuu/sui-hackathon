@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT * FROM videos",
+  "query": "\n            SELECT\n                id,\n                video_blob_id,\n                thumbnail_blob_id,\n                title,\n                description,\n                uploader_id,\n                duration,\n                view_count,\n                like_count,\n                dislike_count,\n                created_at\n            FROM videos\n            WHERE\n              ($1::text IS NULL OR $1::text = '')\n              OR search_vector @@ plainto_tsquery('english', $1::text)\n            ORDER BY ts_rank(search_vector, plainto_tsquery('english', $1::text)) DESC\n        ",
   "describe": {
     "columns": [
       {
@@ -60,7 +60,9 @@
       }
     ],
     "parameters": {
-      "Left": []
+      "Left": [
+        "Text"
+      ]
     },
     "nullable": [
       false,
@@ -76,5 +78,5 @@
       false
     ]
   },
-  "hash": "d520a5a33536d076e34adc9232c894a904b345094a703e47294bf478f60f3849"
+  "hash": "db12f8a534ac56388dc436a0b8a2634ffbd8a703a31d0c36cce282af911e8740"
 }

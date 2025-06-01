@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE videos\n            SET view_count = view_count + 1\n            WHERE id = $1\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "6783fd3ac6bbd35ba11d0c8322cc353ed755b5e7f26bfa6aa3b595c111a57271"
+}

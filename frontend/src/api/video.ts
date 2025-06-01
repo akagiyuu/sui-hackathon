@@ -68,3 +68,20 @@ export const queryAll = async (query: string | null) => {
 
     return (await response.json()) as Video[];
 };
+
+export type ReactionKind = 'like' | 'dislike';
+
+export const react = async (id: string, kind: ReactionKind) => {
+    const response = await fetchWrapper(`video/${id}/react`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reaction_kind: kind }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch video list');
+    }
+};
