@@ -1,5 +1,5 @@
 mod get;
-mod get_all;
+mod query_all;
 mod get_suggestion;
 mod upload;
 
@@ -15,7 +15,7 @@ use uuid::Uuid;
 use crate::{database, error::Result, state::ApiState, util::walrus};
 
 pub use get::*;
-pub use get_all::*;
+pub use query_all::*;
 pub use get_suggestion::*;
 pub use upload::*;
 
@@ -64,5 +64,5 @@ pub fn build() -> Router<Arc<ApiState>> {
         .route("/video", routing::post(upload))
         .route("/video/{id}", routing::get(get))
         .route("/video/{id}/suggestion", routing::get(get_suggestion))
-        .route("/video", routing::get(get_all))
+        .route("/video", routing::get(query_all))
 }
