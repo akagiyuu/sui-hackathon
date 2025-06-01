@@ -8,7 +8,7 @@ export function MainLayout() {
             <Header></Header>
             <main>
                 <Outlet />
-                <Toaster />
+                <Toaster richColors />
             </main>
         </div>
     );
