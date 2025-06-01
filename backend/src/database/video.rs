@@ -1,5 +1,4 @@
 use chrono::{DateTime, Utc};
-use futures::Stream;
 use sqlx::{PgExecutor, Result};
 use uuid::Uuid;
 
