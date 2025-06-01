@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use futures::Stream;
 use serde::Deserialize;
 use sqlx::{PgExecutor, Result};
 use utoipa::ToSchema;
@@ -74,6 +75,30 @@ pub async fn get(id: Uuid, executor: impl PgExecutor<'_>) -> Result<Option<Video
     )
     .fetch_optional(executor)
     .await
+}
+
+pub fn get_by_account<'a>(account_id: Uuid, executor: impl PgExecutor<'a> + 'a) -> impl Stream<Item = Result<Video>> {
+    sqlx::query_as!(
+        Video,
+        r#"
+            SELECT
+                id,
+                video_blob_id,
+                thumbnail_blob_id,
+                title,
+                description,
+                uploader_id,
+                duration,
+                view_count,
+                like_count,
+                dislike_count,
+                created_at
+            FROM videos
+            WHERE uploader_id = $1
+        "#,
+        account_id
+    )
+    .fetch(executor)
 }
 
 pub async fn query_all(query: Option<&str>, executor: impl PgExecutor<'_>) -> Result<Vec<Video>> {
