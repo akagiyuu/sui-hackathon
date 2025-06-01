@@ -20,7 +20,12 @@ use super::Video;
     ),
 )]
 pub async fn get(state: State<Arc<ApiState>>, Path(id): Path<Uuid>) -> Result<Json<Option<Video>>> {
-    let video = match database::video::get(id, &state.database_pool).await? {
+    let (video_raw, _) = tokio::try_join!(
+        database::video::get(id, &state.database_pool),
+        database::video::increase_view(id, &state.database_pool),
+    )?;
+
+    let video = match video_raw {
         Some(raw) => Some(Video::from_raw(raw, &state.database_pool).await?),
         None => None,
     };
