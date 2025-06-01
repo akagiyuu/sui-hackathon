@@ -3,6 +3,7 @@ import * as api from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { useSearchParams } from 'react-router';
+import { VideoList } from '@/components/video-list';
 
 export function HomePage() {
     const [searchParams, _] = useSearchParams();
@@ -31,10 +32,8 @@ export function HomePage() {
     }
 
     return (
-        <div className="mx-auto p-7">
-            {videos.map((video) => (
-                <VideoCard {...video} />
-            ))}
+        <div className="mx-auto p-7 px-20">
+            <VideoList videos={videos} />
         </div>
     );
 }
