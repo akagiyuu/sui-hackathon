@@ -59,7 +59,7 @@ export const getSuggestion = async (id: string) => {
     return (await response.json()) as Video[];
 };
 
-export const queryAll = async (query?: string) => {
+export const queryAll = async (query: string | null) => {
     const response = await fetchWrapper(`video?query=${query ?? ''}`);
 
     if (!response.ok) {
