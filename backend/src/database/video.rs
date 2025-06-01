@@ -1,6 +1,7 @@
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use sqlx::{PgExecutor, Result};
+use utoipa::ToSchema;
 use uuid::Uuid;
 
 pub struct CreateVideo {
@@ -119,6 +120,7 @@ pub async fn increase_view(id: Uuid, executor: impl PgExecutor<'_>) -> Result<()
 }
 
 #[derive(Clone, Copy, Deserialize, ToSchema)]
+#[serde(rename_all = "snake_case")]
 pub enum ReactionKind {
     Like,
     Dislike,

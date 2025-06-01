@@ -39,7 +39,8 @@ impl Modify for SecurityAddon {
         controller::video::get,
         controller::video::get_suggestion,
         controller::video::query_all,
-        controller::video::upload
+        controller::video::upload,
+        controller::video::react
     ),
     modifiers(&SecurityAddon),
 )]
