@@ -209,14 +209,14 @@ function Suggestion() {
     return (
         <div className="space-y-4 animate-fade-in-delay">
             <h3 className="font-semibold text-white">Suggested Videos</h3>
-            <div className="space-y-3">
+            <div>
                 {suggestedVideos.map((video, index) => (
                     <Link
                         key={index}
                         to={`/watch/${video.id}`}
-                        className="group animate-fade-in-up mx-3"
+                        className="group animate-fade-in-up"
                     >
-                        <VideoCard {...video} />
+                        <VideoCard className='w-xs' {...video} />
                     </Link>
                 ))}
             </div>
