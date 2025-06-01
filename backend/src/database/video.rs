@@ -101,3 +101,18 @@ pub async fn query_all(query: Option<&str>, executor: impl PgExecutor<'_>) -> Re
     .fetch_all(executor)
     .await
 }
+
+pub async fn increase_view(id: Uuid, executor: impl PgExecutor<'_>) -> Result<()> {
+    sqlx::query!(
+        r#"
+            UPDATE videos
+            SET view_count = view_count + 1
+            WHERE id = $1
+        "#,
+        id
+    )
+    .execute(executor)
+    .await?;
+
+    Ok(())
+}
