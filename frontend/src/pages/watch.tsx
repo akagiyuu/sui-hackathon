@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { MinimalVideoCard } from '@/components/video-card';
+import { VideoCard } from '@/components/video-card';
 import { formatDate, formatNumber } from '@/lib/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ThumbsUp, ThumbsDown, Share, Eye } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Share } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import * as api from '@/api';
 import { toast } from 'sonner';
@@ -164,8 +164,7 @@ function Video() {
 
                 <div className="flex items-center space-x-4 text-sm text-neutral-400 animate-fade-in">
                     <span className="flex items-center space-x-1">
-                        <Eye className="w-4 h-4" />
-                        <span>{formatNumber(video.viewCount)}</span>
+                        <span>{formatNumber(video.viewCount)} views</span>
                     </span>
                     <span>•</span>
                     <span>{formatDate(video.createdAt)}</span>
@@ -217,7 +216,7 @@ function Suggestion() {
                         to={`/watch/${index}`}
                         className="group animate-fade-in-up mx-3"
                     >
-                        <MinimalVideoCard {...video} />
+                        <VideoCard {...video} />
                     </Link>
                 ))}
             </div>
