@@ -14,10 +14,14 @@ export const upload = async (data: UploadVideo) => {
         formData.append(key, value);
     }
 
-    fetchWrapper('video', {
+    const response = await fetchWrapper('video', {
         method: 'POST',
         body: formData,
     });
+
+    if (!response.ok) {
+        throw new Error('Failed to upload book');
+    }
 };
 
 export interface Video {
