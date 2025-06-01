@@ -94,6 +94,7 @@ pub async fn query_all(query: Option<&str>, executor: impl PgExecutor<'_>) -> Re
             WHERE
               ($1::text IS NULL OR $1::text = '')
               OR search_vector @@ plainto_tsquery('english', $1::text)
+            ORDER BY ts_rank(search_vector, plainto_tsquery('english', $1::text)) DESC
         "#,
         query
     )
