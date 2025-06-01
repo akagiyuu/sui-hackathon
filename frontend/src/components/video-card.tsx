@@ -1,4 +1,4 @@
-import { Clock, Eye, Play } from 'lucide-react';
+import { Clock, Play } from 'lucide-react';
 import { formatDate, formatDuration, formatNumber } from '@/lib/utils';
 import { useNavigate } from 'react-router';
 
