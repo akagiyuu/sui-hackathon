@@ -71,10 +71,10 @@ export function Account() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <div className="flex flex-cols gap-5">
+                        <Link className="flex flex-cols gap-5" to="/profile">
                             <List />
                             My videos
-                        </div>
+                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Link className="flex flex-cols gap-5" to="/upload">

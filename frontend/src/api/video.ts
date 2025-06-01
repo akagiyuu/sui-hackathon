@@ -59,6 +59,16 @@ export const getSuggestion = async (id: string) => {
     return (await response.json()) as Video[];
 };
 
+export const my = async () => {
+    const response = await fetchWrapper('video/my');
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch video list');
+    }
+
+    return (await response.json()) as Video[];
+};
+
 export const queryAll = async (query: string | null) => {
     const response = await fetchWrapper(`video?query=${query ?? ''}`);
 
