@@ -3,7 +3,8 @@ services:
     container_name: sui-backend
     environment:
       DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@sui-database:5432/${PG_DB}
-      PUBLIC_CORS_DOMAIN: https://${HOST_NAME}
+      CORS_DOMAIN: https://${HOST_NAME}
+      FRONTEND_REDIRECT: https://${HOST_NAME}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       GOOGLE_REDIRECT_URL: ${GOOGLE_REDIRECT_URL}
