@@ -20,7 +20,7 @@ export const upload = async (data: UploadVideo) => {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to upload book');
+        throw new Error('Failed to upload video');
     }
 };
 
