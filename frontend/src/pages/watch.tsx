@@ -213,7 +213,7 @@ function Suggestion() {
                 {suggestedVideos.map((video, index) => (
                     <Link
                         key={index}
-                        to={`/watch/${index}`}
+                        to={`/watch/${video.id}`}
                         className="group animate-fade-in-up mx-3"
                     >
                         <VideoCard {...video} />
@@ -226,7 +226,7 @@ function Suggestion() {
 
 export default function WatchPage() {
     return (
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-8xl mx-auto px-6 py-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <Video />
                 <Suggestion />

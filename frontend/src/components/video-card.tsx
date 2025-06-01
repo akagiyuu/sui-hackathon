@@ -33,7 +33,7 @@ export function VideoCard({
             onClick={watch}
             className="w-fit my-5 grid grid-cols-2 gap-5 group p-0 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-black/20 hover:cursor-pointer animate-fade-in-up"
         >
-            <div className="w-md relative aspect-video rounded-xl overflow-hidden">
+            <div className="max-w-md relative aspect-video rounded-xl overflow-hidden">
                 <img
                     src={thumbnail}
                     alt={title}
