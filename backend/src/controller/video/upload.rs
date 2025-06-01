@@ -49,10 +49,15 @@ pub async fn upload(
         }
     )?;
 
+    tracing::info!(duraion = duration);
+
     let (video_blob_id, thumbnail_blob_id) = tokio::try_join!(
         walrus::upload(video_file),
         walrus::upload(request.thumbnail.contents)
     )?;
+
+    tracing::info!(video_blob_id = video_blob_id);
+    tracing::info!(thumbnail_blob_id = thumbnail_blob_id);
 
     let id = database::video::create(
         &CreateVideo {
